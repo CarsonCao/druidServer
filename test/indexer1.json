@@ -1,0 +1,27 @@
+{
+    "projectId":"1002627",
+    "userId":"26",
+    "jobCount":1,
+    "messageSpec":{
+        "mgThreshold":0.4,
+        "features":"es,web,sec",
+        "filesId":"1,2,3",
+        "header":"header test context"
+
+    },
+    "jobsSpec":[       
+        {
+            "fileFormat":"tsv",
+            "hdfsUrl":"hdfs://masters",
+            "dataPath":"/user/hive/warehouse/kaishu.db/stat_ip_minute_17/",
+            "tableName":"campass_26_1002627_stat_ip_minute2",
+            "segmentGranularity":"month",
+            "columnsDesc":"time:timestamp,ip:string,cn_country:string,en_country:string,cn_province:string,en_province:string,counts:long",
+            "intervals":"2016-11-01/2018-01-01",
+            "delimiter":"\\u0001",
+            "listDelimiter":"\\u0002",
+            "timeFormat":"yyyyMMddHHmm",
+            "resubmitCount":1
+        }  
+    ]
+}

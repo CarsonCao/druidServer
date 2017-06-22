@@ -1,0 +1,47 @@
+{
+  "type" : "index_hadoop",
+  "spec" : {
+    "ioConfig" : {
+      "type" : "hadoop",
+      "inputSpec" : {
+        "type" : "static",
+        "paths" : "<%- hdfsUrl %><%- dataPath %>"
+      }
+    },
+    "dataSchema" : {
+      "dataSource" : "<%- tableName %>",
+      "granularitySpec" : {
+        "type" : "uniform",
+        "segmentGranularity" : "<%- segmentGranularity %>",
+        "queryGranularity" : "<%- queryGranularity %>",
+        "intervals" : ["<%- intervals %>"]
+      },
+      "parser" : {
+        "type" : "hadoopyString",
+        "parseSpec" : {
+          <%- parseSpec %>
+        }
+      },
+      "metricsSpec" : [<%- metricsSpec %> ]
+    },
+    "tuningConfig" : {
+      "type" : "hadoop",
+      "ignoreInvalidRows" : "true",
+      "maxRowsInMemory" : 500000,
+      "partitionsSpec" : {
+        "type" : "hashed",
+        "targetPartitionSize" : 5000000
+      },
+      "jobProperties": {
+		"mapreduce.jobtracker.staging.root.dir" : "<%- hdfsUrl %>/druid/hadoop",
+        	"yarn.app.mapreduce.am.staging-dir" : "<%- hdfsUrl %>/druid/hadoop/hadoop-yarn/staging",
+		"mapreduce.job.classloader" : "true",
+		"mapreduce.job.classloader.system.classes": "-javax.validation.,java.,javax.,org.apache.commons.logging.,org.apache.log4j.,org.apache.hadoop.",
+		"mapreduce.map.java.opts":"-Duser.timezone=UTC -Dfile.encoding=UTF-8",
+		"mapreduce.reduce.java.opts":"-Duser.timezone=UTC -Dfile.encoding=UTF-8"
+            }
+    }
+  },
+"hadoopDependencyCoordinates": [ "org.apache.hadoop:hadoop-client:<%-hadoopVersion%>"]
+}
+
